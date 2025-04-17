@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const Dotenv = require('dotenv-webpack');
+const webpack = require('webpack');
+require('dotenv').config();
 
 module.exports = {
   mode: 'development',
@@ -41,8 +42,8 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './public/index.html',
     }),
-    new Dotenv({
-      path: './.env', // or just .env if that’s what you use
+    new webpack.DefinePlugin({
+      'process.env.OMDB_API_KEY': JSON.stringify(process.env.OMDB_API_KEY),
     }),
   ],
 };

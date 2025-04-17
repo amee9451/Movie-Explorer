@@ -33,7 +33,7 @@ module.exports = {
     static: {
       directory: path.join(__dirname, 'dist'), // Replaces contentBase
     },
-    port: 3000,
+    port: 9999,
     hot: true,
     historyApiFallback: true,
   },

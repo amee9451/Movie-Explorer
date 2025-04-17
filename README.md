@@ -130,5 +130,3 @@ jobs:
 - On success, deploy using Vercel/Netlify Git integration or upload to S3 via CLI/CDK
 
 ---
-
-All set! 💥 Let me know if you want help with GitHub repo setup or want to deploy this live.

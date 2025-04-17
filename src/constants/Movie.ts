@@ -4,6 +4,6 @@ export const SWR_CONFIG = {
   revalidateOnFocus: false,
   revalidateOnReconnect: false,
 };
-
+export const VARS = process.env;
 export const API_KEY = process.env.OMDB_API_KEY;
 export const BASE_URL = 'https://www.omdbapi.com/';

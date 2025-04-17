@@ -1,7 +1,9 @@
 import axios from 'axios';
 import useSWR from 'swr';
 import { Movie } from '../types/movie';
-import { SWR_CONFIG, API_KEY, BASE_URL } from '../constants/Movie';
+import { SWR_CONFIG, API_KEY, BASE_URL, VARS } from '../constants/Movie';
+
+console.log('VARS', VARS);
 
 const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 

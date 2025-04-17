@@ -24,7 +24,11 @@ const SearchBar: React.FC<Props> = ({ setMovies }) => {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       />
-      <button onClick={handleSearch} className="bg-blue-600 text-white px-4 py-2 rounded">
+      <button
+        type="button"
+        onClick={handleSearch}
+        className="bg-blue-600 text-white px-4 py-2 rounded"
+      >
         Search
       </button>
     </div>

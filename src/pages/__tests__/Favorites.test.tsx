@@ -1,22 +1,34 @@
-// src/pages/__tests__/Favorites.test.tsx
-
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import Favorites from '../Favorites';
 import { BrowserRouter } from 'react-router-dom';
+import { Movie } from '../../types/movie';
 
-jest.mock('../../components/MovieCard', () => (props: any) => {
-  return (
+// Mock the MovieCard component
+jest.mock('../../components/MovieCard', () => {
+  const MockMovieCard = ({
+    movie,
+    isFavorite,
+    toggleFavorite,
+  }: {
+    movie: Movie;
+    isFavorite?: boolean;
+    toggleFavorite: (movie: Movie) => void;
+  }) => (
     <div data-testid="movie-card">
-      <p>{props.movie.Title}</p>
-      <button onClick={() => props.toggleFavorite(props.movie.imdbID)}>
-        {props.isFavorite ? 'Remove Favorite' : 'Add to Favorites'}
+      <p>{movie.Title}</p>
+      <button type="button" onClick={() => toggleFavorite(movie)}>
+        {isFavorite ? 'Remove Favorite' : 'Add to Favorites'}
       </button>
     </div>
   );
+
+  MockMovieCard.displayName = 'MockMovieCard';
+  return MockMovieCard;
 });
 
-const mockFavoriteMovies = [
+// Sample mock data
+const mockFavoriteMovies: Movie[] = [
   {
     Title: 'Inception',
     Year: '2010',

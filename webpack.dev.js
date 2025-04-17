@@ -20,18 +20,18 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
-      test: /\.css$/,
-      use: [
-        'style-loader',
-        'css-loader',
-        'postcss-loader',  // Add postcss-loader
-      ],
-    },
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'postcss-loader', // Add postcss-loader
+        ],
+      },
     ],
   },
   devServer: {
     static: {
-      directory: path.join(__dirname, 'dist'),  // Replaces contentBase
+      directory: path.join(__dirname, 'dist'), // Replaces contentBase
     },
     port: 3000,
     hot: true,
@@ -41,8 +41,8 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './public/index.html',
     }),
-     new Dotenv({
-        path: './.env', // or just .env if that’s what you use
-      }),
+    new Dotenv({
+      path: './.env', // or just .env if that’s what you use
+    }),
   ],
 };

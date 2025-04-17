@@ -3,10 +3,10 @@ import MovieCard from '../components/MovieCard';
 import { Movie } from '../types/movie';
 
 const Favorites = () => {
- const [favorites, setFavorites] = useState<Movie[]>(() => {
-  const stored = localStorage.getItem('favorites');
-  return stored ? JSON.parse(stored) : [];
-});
+  const [favorites, setFavorites] = useState<Movie[]>(() => {
+    const stored = localStorage.getItem('favorites');
+    return stored ? JSON.parse(stored) : [];
+  });
 
   useEffect(() => {
     // Get the favorites from localStorage when the component mounts
@@ -16,15 +16,15 @@ const Favorites = () => {
     }
   }, []);
 
- const toggleFavorite = (movie: Movie) => {
-  const exists = favorites.some(fav => fav.imdbID === movie.imdbID);
-  const updated = exists
-    ? favorites.filter(fav => fav.imdbID !== movie.imdbID)
-    : [...favorites, movie];
+  const toggleFavorite = (movie: Movie) => {
+    const exists = favorites.some((fav) => fav.imdbID === movie.imdbID);
+    const updated = exists
+      ? favorites.filter((fav) => fav.imdbID !== movie.imdbID)
+      : [...favorites, movie];
 
-  setFavorites(updated);
-  localStorage.setItem('favorites', JSON.stringify(updated));
-};
+    setFavorites(updated);
+    localStorage.setItem('favorites', JSON.stringify(updated));
+  };
 
   return (
     <div className="container mx-auto p-4">
@@ -36,7 +36,8 @@ const Favorites = () => {
           {favorites.map((movie) => (
             <MovieCard
               movie={movie}
-              isFavorite={favorites.some(fav => fav.imdbID === movie.imdbID)}
+              key={movie.imdbID}
+              isFavorite={favorites.some((fav) => fav.imdbID === movie.imdbID)}
               toggleFavorite={toggleFavorite}
             />
           ))}

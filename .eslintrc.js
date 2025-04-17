@@ -1,37 +1,51 @@
 module.exports = {
-  root: true,
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    ecmaVersion: 2020,
+    ecmaVersion: 'latest',
     sourceType: 'module',
+    ecmaFeatures: {
+      jsx: true,
+    },
+    project: './tsconfig.json',
   },
-  plugins: ['@typescript-eslint', 'react-hooks'],
+  settings: {
+    react: {
+      version: 'detect',
+    },
+    'import/resolver': {
+      typescript: {},
+    },
+  },
+  env: {
+    browser: true,
+    es2021: true,
+    node: true,
+  },
+  plugins: ['react', 'react-hooks', '@typescript-eslint', 'import'],
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
     'plugin:@typescript-eslint/recommended',
-    'airbnb',
-    'airbnb/hooks',
-    'plugin:prettier/recommended',
   ],
   rules: {
-    'react/jsx-filename-extension': [1, { extensions: ['.tsx'] }],
+    'no-console': 'warn',
+    'react/react-in-jsx-scope': 'off',
+    'react/function-component-definition': ['error', { namedComponents: 'arrow-function' }],
+    'react/button-has-type': 'error',
+    'react/require-default-props': 'warn',
+    '@typescript-eslint/no-unused-vars': ['warn'],
+    'import/no-unresolved': 'error',
     'import/extensions': [
       'error',
       'ignorePackages',
       {
+        js: 'never',
+        jsx: 'never',
         ts: 'never',
         tsx: 'never',
       },
     ],
-    'react/react-in-jsx-scope': 'off',
-    'import/no-extraneous-dependencies': 'off',
   },
-  settings: {
-    'import/resolver': {
-      node: {
-        extensions: ['.js', '.jsx', '.ts', '.tsx'],
-      },
-    },
-  },
+  ignorePatterns: ['*.js', 'webpack.*.js', 'tailwind.config.js'],
 };

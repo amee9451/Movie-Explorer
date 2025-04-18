@@ -96,6 +96,7 @@ npm run test
   - This avoids exposing the OMDB_API_KEY in the frontend
   - Enables better security, request throttling, and caching
   - Allows additional business logic and error handling on the server
+- All static test should be come from CMS or const file.   
 
 ## Potential Security Improvements
 

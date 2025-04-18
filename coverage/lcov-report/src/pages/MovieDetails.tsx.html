@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/15</span>
+                <span class='fraction'>15/15</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>6/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>10/10</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -113,20 +113,18 @@
 <a name='L48'></a><a href='#L48'>48</a>
 <a name='L49'></a><a href='#L49'>49</a>
 <a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<a name='L51'></a><a href='#L51'>51</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -162,19 +160,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import React from 'react';</span>
-<span class="cstat-no" title="statement not covered" >import { useParams, Link } from 'react-router-dom';</span>
-<span class="cstat-no" title="statement not covered" >import { useMovieById } from '../utils/fetcher';</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
+import { useParams, Link } from 'react-router-dom';
+import { useMovieById } from '../utils/fetcher';
 &nbsp;
-const MovieDetails: React.FC = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =&gt; {</span></span>
-  const { id } = <span class="cstat-no" title="statement not covered" >useParams&lt;{ id: string }&gt;();</span>
-  const { data: movie<span class="cstat-no" title="statement not covered" >, e</span>rror<span class="cstat-no" title="statement not covered" >, i</span>sLoading<span class="cstat-no" title="statement not covered" > } = <span class="cstat-no" title="statement not covered" >u</span>seMovieById(id || '');</span>
+const MovieDetails: React.FC = () =&gt; {
+  const { id } = useParams&lt;{ id: string }&gt;();
+  const { data: movie, error, isLoading } = useMovieById(id || <span class="branch-1 cbranch-no" title="branch not covered" >'')</span>;
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  <span class="missing-if-branch" title="if path not taken" >I</span>if (isLoading) <span class="cstat-no" title="statement not covered" >return &lt;div className="text-center py-4"&gt;Loading movie details...&lt;/div&gt;;</span></span>
-<span class="cstat-no" title="statement not covered" >  <span class="missing-if-branch" title="if path not taken" >I</span>if (error || !movie) <span class="cstat-no" title="statement not covered" >return &lt;div className="text-center text-red-500"&gt;Movie not found.&lt;/div&gt;;</span></span>
+  if (isLoading) return &lt;div className="text-center py-4"&gt;Loading movie details...&lt;/div&gt;;
+  if (error || !movie) return &lt;div className="text-center text-red-500"&gt;Movie not found.&lt;/div&gt;;
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;div className="max-w-4xl mx-auto px-4 py-8"&gt;
       &lt;Link to="/" className="text-blue-600 hover:underline mb-4 inline-block"&gt;
         ← Back to search
@@ -182,7 +182,7 @@ const MovieDetails: React.FC = <span class="cstat-no" title="statement not cover
 &nbsp;
       &lt;div className="flex flex-col md:flex-row gap-6"&gt;
         &lt;img
-          src={movie.Poster !== 'N/A' ? movie.Poster : '/no-poster.jpg'}
+          src={movie.Poster !== 'N/A' ? movie.Poster : <span class="branch-1 cbranch-no" title="branch not covered" >'/no-poster.jpg'}</span>
           alt={movie.Title}
           className="w-full md:w-64 rounded shadow"
         /&gt;
@@ -212,7 +212,7 @@ const MovieDetails: React.FC = <span class="cstat-no" title="statement not cover
   );
 };
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export default MovieDetails;</span>
+export default MovieDetails;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -220,7 +220,7 @@ const MovieDetails: React.FC = <span class="cstat-no" title="statement not cover
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-04-18T05:16:01.334Z
+                at 2025-04-18T06:38:35.453Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

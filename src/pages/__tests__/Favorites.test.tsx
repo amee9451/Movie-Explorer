@@ -1,7 +1,7 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import Favorites from '../Favorites';
-import { BrowserRouter } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 import { Movie } from '../../types/movie';
 
 // Mock the MovieCard component
@@ -48,9 +48,9 @@ describe('Favorites Page', () => {
   it('renders favorite movies from localStorage', () => {
     localStorage.setItem('favorites', JSON.stringify(mockFavoriteMovies));
     render(
-      <BrowserRouter>
+      <MemoryRouter>
         <Favorites />
-      </BrowserRouter>
+      </MemoryRouter>
     );
     expect(screen.getByText(/Inception/i)).toBeInTheDocument();
     expect(screen.getByText(/Remove Favorite/i)).toBeInTheDocument();
@@ -59,10 +59,53 @@ describe('Favorites Page', () => {
   it('shows a message when there are no favorites', () => {
     localStorage.removeItem('favorites');
     render(
-      <BrowserRouter>
+      <MemoryRouter>
         <Favorites />
-      </BrowserRouter>
+      </MemoryRouter>
     );
     expect(screen.getByText(/No favorite movies added yet./i)).toBeInTheDocument();
+  });
+
+  it('handles valid non-array data in localStorage gracefully', () => {
+    localStorage.setItem('favorites', JSON.stringify([]));
+    render(
+      <MemoryRouter>
+        <Favorites />
+      </MemoryRouter>
+    );
+    expect(screen.getByText(/No favorite movies added yet./i)).toBeInTheDocument();
+  });
+
+  it('adds and removes a movie from favorites correctly', () => {
+    const mockMovie = {
+      Title: 'Inception',
+      Year: '2010',
+      imdbID: 'tt1375666',
+      Type: 'movie',
+      Poster: 'https://example.com/poster.jpg',
+      Genre: 'Action',
+      Director: 'Nolan',
+      Actors: 'Leonardo DiCaprio',
+      Plot: 'A dream within a dream',
+    };
+
+    // Set the movie as initial favorite
+    localStorage.setItem('favorites', JSON.stringify([mockMovie]));
+
+    render(
+      <MemoryRouter>
+        <Favorites />
+      </MemoryRouter>
+    );
+
+    // Check that the movie renders and the button is visible
+    expect(screen.getByText(/Inception/i)).toBeInTheDocument();
+
+    const removeBtn = screen.getByRole('button', { name: /Remove Favorite/i });
+    fireEvent.click(removeBtn);
+
+    // Now the movie should be removed from localStorage
+    const updated = JSON.parse(localStorage.getItem('favorites') || '[]');
+    expect(updated).toHaveLength(0);
   });
 });

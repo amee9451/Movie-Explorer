@@ -1,33 +1,30 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { Movie } from '../types/movie';
-const API_KEY = process.env.OMDB_API_KEY;
+import React, { useEffect, useState } from 'react';
 
-interface Props {
-  setMovies: (movies: Movie[]) => void;
-}
+type Props = {
+  handleSearch: (query: string) => void;
+  initialState: string;
+};
 
-const SearchBar: React.FC<Props> = ({ setMovies }) => {
+const SearchBar: React.FC<Props> = ({ handleSearch, initialState }) => {
   const [query, setQuery] = useState('');
-
-  const handleSearch = async () => {
-    const response = await axios.get(`https://www.omdbapi.com/?apikey=${API_KEY}&s=${query}`);
-    setMovies(response.data.Search || []);
-  };
-
+  useEffect(() => {
+    setQuery(initialState);
+  }, [initialState]);
   return (
-    <div className="flex gap-2">
+    <div className="flex justify-center mb-6">
       <input
         type="text"
-        placeholder="Search for movies..."
-        className="w-full p-2 border rounded"
+        placeholder="Search for movie..."
+        className="w-full max-w-xl px-4 py-2 rounded-lg border shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
+        onKeyDown={(e) => e.key === 'Enter' && handleSearch(query)}
       />
       <button
         type="button"
-        onClick={handleSearch}
-        className="bg-blue-600 text-white px-4 py-2 rounded"
+        name="search"
+        className="ml-2 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+        onClick={() => handleSearch(query)}
       >
         Search
       </button>

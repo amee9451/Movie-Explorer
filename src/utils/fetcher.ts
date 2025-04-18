@@ -1,5 +1,5 @@
 import axios from 'axios';
-import useSWR from 'swr';
+import useSWR, { SWRResponse } from 'swr';
 import { Movie } from '../types/movie';
 import { SWR_CONFIG, API_KEY, BASE_URL } from '../constants/Movie';
 
@@ -24,16 +24,28 @@ export const fetchMovieById = async (id: string): Promise<Movie> => {
   });
   return response.data;
 };
+type MovieSearchResponse = {
+  Search: Movie[];
+  totalResults?: string;
+  Response: 'True' | 'False';
+  Error?: string;
+};
 
-export const useMovies = (query: string) => {
-  const { data, error, isLoading } = useSWR(
+export const useMovies = (
+  query: string
+): {
+  data: Movie[];
+  error: SWRResponse<MovieSearchResponse, unknown>['error'];
+  isLoading: boolean;
+} => {
+  const { data, error, isLoading }: SWRResponse<MovieSearchResponse, unknown> = useSWR(
     query ? `${BASE_URL}?apikey=${API_KEY}&s=${query}` : null,
     fetcher,
     SWR_CONFIG
   );
   return {
     data: data?.Search ?? [],
-    error,
+    error: error || data?.Search ? false : true,
     isLoading,
   };
 };

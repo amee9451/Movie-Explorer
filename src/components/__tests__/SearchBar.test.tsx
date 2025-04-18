@@ -1,65 +1,68 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import SearchBar from '../SearchBar';
-import axios from 'axios';
-import { Movie } from '../../types/movie';
+import { render, fireEvent, screen, waitFor } from '@testing-library/react';
+import SearchBar from '../SearchBar'; // Adjust path as needed
+import { sanitizeInput } from '../../utils/sanitizeInput';
+jest.mock('../../utils/sanitizeInput');
 
-jest.mock('axios');
-const mockedAxios = axios as jest.Mocked<typeof axios>;
+describe('SearchBar Component', () => {
+  const mockHandleSearch = jest.fn();
 
-describe('SearchBar', () => {
-  const mockMovies: Movie[] = [
-    {
-      Title: 'Inception',
-      Year: '2010',
-      imdbID: 'tt1375666',
-      Type: 'movie',
-      Poster: 'https://example.com/poster.jpg',
-    },
-  ];
+  it('should render with initialState and update input value', () => {
+    const { getByPlaceholderText } = render(
+      <SearchBar handleSearch={mockHandleSearch} initialState="Batman" />
+    );
 
-  const mockSetMovies = jest.fn();
+    const input = getByPlaceholderText('Search for movie...') as HTMLInputElement;
+    expect(input.value).toBe('Batman');
 
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
-  it('renders input and button', () => {
-    render(<SearchBar setMovies={mockSetMovies} />);
-    expect(screen.getByPlaceholderText(/Search for movies/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /search/i })).toBeInTheDocument();
-  });
-
-  it('calls API and sets movies on search', async () => {
-    mockedAxios.get.mockResolvedValueOnce({ data: { Search: mockMovies } });
-
-    render(<SearchBar setMovies={mockSetMovies} />);
-
-    const input = screen.getByPlaceholderText(/Search for movies/i);
     fireEvent.change(input, { target: { value: 'Inception' } });
+    expect(input.value).toBe('Inception');
+  });
 
+  it('should call handleSearch on button click', () => {
+    const { getByPlaceholderText, getByRole } = render(
+      <SearchBar handleSearch={mockHandleSearch} initialState="" />
+    );
+
+    const input = getByPlaceholderText('Search for movie...') as HTMLInputElement;
+    const button = getByRole('button', { name: 'Search' });
+
+    fireEvent.change(input, { target: { value: 'Matrix' } });
+    fireEvent.click(button);
+
+    expect(mockHandleSearch).toHaveBeenCalledWith('Matrix');
+  });
+
+  it('should call handleSearch on Enter key press', () => {
+    const { getByPlaceholderText } = render(
+      <SearchBar handleSearch={mockHandleSearch} initialState="" />
+    );
+
+    const input = getByPlaceholderText('Search for movie...') as HTMLInputElement;
+
+    fireEvent.change(input, { target: { value: 'Interstellar' } });
+    fireEvent.keyDown(input, { key: 'Enter', code: 'Enter', charCode: 13 });
+
+    expect(mockHandleSearch).toHaveBeenCalledWith('Interstellar');
+  });
+
+  it('sets query and triggers search on button click', async () => {
+    (sanitizeInput as jest.Mock).mockImplementation((input) => input.trim());
+    render(<SearchBar handleSearch={mockHandleSearch} initialState="" />);
+    const input = screen.getByPlaceholderText(/Search for movie.../i);
     const button = screen.getByRole('button', { name: /search/i });
+
+    fireEvent.change(input, { target: { value: 'batman ' } });
     fireEvent.click(button);
 
     await waitFor(() => {
-      expect(mockedAxios.get).toHaveBeenCalledWith(expect.stringContaining('s=Inception'));
-      expect(mockSetMovies).toHaveBeenCalledWith(mockMovies);
+      expect(mockHandleSearch).toHaveBeenCalledWith('batman ');
     });
   });
 
-  it('handles no results from API', async () => {
-    mockedAxios.get.mockResolvedValueOnce({ data: { Search: undefined } });
-
-    render(<SearchBar setMovies={mockSetMovies} />);
-
-    const input = screen.getByPlaceholderText(/Search for movies/i);
-    fireEvent.change(input, { target: { value: 'Nonexistent Movie' } });
-
-    const button = screen.getByRole('button', { name: /search/i });
-    fireEvent.click(button);
-
-    await waitFor(() => {
-      expect(mockSetMovies).toHaveBeenCalledWith([]);
-    });
+  it('renders search input and search button', () => {
+    render(<SearchBar handleSearch={mockHandleSearch} initialState="" />);
+    expect(screen.getByPlaceholderText(/Search for movie.../i)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /search/i })).toBeInTheDocument();
   });
 });

@@ -63,8 +63,10 @@ describe('Fetcher utilities', () => {
         expect.any(Function),
         expect.any(Object)
       );
+
       expect(result.current.data).toEqual([mockMovie]);
-      expect(result.current.error).toBeNull();
+      expect(result.current.error).toBe(false); // Updated from null to boolean
+      expect(result.current.isLoading).toBe(false);
     });
 
     it('returns empty array if no query is provided', () => {

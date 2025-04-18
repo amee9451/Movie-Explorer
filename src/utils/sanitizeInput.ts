@@ -13,6 +13,5 @@ export const sanitizeInput = (input: string): string => {
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#x27;')
     .replace(/\//g, '&#x2F;');
-  console.log('sanitized', sanitized);
   return sanitized;
 };

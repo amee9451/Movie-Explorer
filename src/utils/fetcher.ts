@@ -25,7 +25,6 @@ export const fetchMovieById = async (id: string): Promise<Movie> => {
   return response.data;
 };
 
-//Custom SWR hook for searching movies
 export const useMovies = (query: string) => {
   const { data, error, isLoading } = useSWR(
     query ? `${BASE_URL}?apikey=${API_KEY}&s=${query}` : null,
@@ -33,12 +32,11 @@ export const useMovies = (query: string) => {
     SWR_CONFIG
   );
   return {
-    data: data?.Search ?? [], // fallback to empty array
+    data: data?.Search ?? [],
     error,
     isLoading,
   };
 };
 
-// Custom SWR hook for fetching movie details
 export const useMovieById = (id: string) =>
   useSWR(id ? `${BASE_URL}?apikey=${API_KEY}&i=${id}` : null, fetcher, SWR_CONFIG);

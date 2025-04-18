@@ -22,7 +22,7 @@ const MovieCard: React.FC<Props> = ({ movie, isFavorite, toggleFavorite }) => {
         onClick={() => toggleFavorite(movie)}
         className={`mt-2 text-sm px-2 py-1 rounded ${isFavorite ? 'bg-red-500 text-white' : 'bg-gray-300'}`}
       >
-        {isFavorite ? 'Unfavorite' : 'Favorite'}
+        {isFavorite ? 'Remove Favorite' : 'Favorite'}
       </button>
     </div>
   );

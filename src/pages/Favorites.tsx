@@ -4,8 +4,9 @@ import { Movie } from '../types/movie';
 
 const Favorites = () => {
   const [favorites, setFavorites] = useState<Movie[]>(() => {
-    const stored = localStorage.getItem('favorites');
-    return stored ? JSON.parse(stored) : [];
+    const stored = localStorage.getItem('favorites') || '[]';
+    const a = Array.isArray(stored) ? JSON.parse(stored) : [];
+    return a;
   });
 
   useEffect(() => {

@@ -66,12 +66,14 @@ npm run test
 ## Scripts
 
 ```json
-"start": "webpack serve --config webpack.dev.js",
-"build": "webpack --config webpack.prod.js",
-"test": "jest",
-"lint": "eslint src --ext .ts,.tsx",
-"format": "prettier --write .",
-"prepare": "husky install"
+  "lint": "eslint src --ext .ts,.tsx",
+  "format": "prettier --write .",
+  "prepare": "husky install",
+  "test": "jest",
+  "start": "webpack serve --config webpack.dev.js",
+  "build": "webpack --config webpack.prod.js",
+  "coverage":"npm test -- --coverage",
+  "test:bail": "jest --bail"
 ```
 
 ## Decisions & Trade-offs

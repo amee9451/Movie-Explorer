@@ -10,12 +10,14 @@ jest.mock('../../components/MovieCard', () => {
     movie,
     isFavorite,
     toggleFavorite,
+    ...rest
   }: {
     movie: Movie;
     isFavorite?: boolean;
     toggleFavorite: (movie: Movie) => void;
+    [key: string]: unknown;
   }) => (
-    <div data-testid="movie-card">
+    <div data-testid="movie-card" {...rest}>
       <p>{movie.Title}</p>
       <button type="button" onClick={() => toggleFavorite(movie)}>
         {isFavorite ? 'Remove Favorite' : 'Add to Favorites'}
@@ -43,12 +45,8 @@ const mockFavoriteMovies: Movie[] = [
 ];
 
 describe('Favorites Page', () => {
-  beforeEach(() => {
-    localStorage.setItem('favorites', JSON.stringify(['tt1375666']));
-    localStorage.setItem('movieDetails_tt1375666', JSON.stringify(mockFavoriteMovies[0]));
-  });
-
   it('renders favorite movies from localStorage', () => {
+    localStorage.setItem('favorites', JSON.stringify(mockFavoriteMovies));
     render(
       <BrowserRouter>
         <Favorites />
@@ -59,12 +57,12 @@ describe('Favorites Page', () => {
   });
 
   it('shows a message when there are no favorites', () => {
-    localStorage.clear();
+    localStorage.removeItem('favorites');
     render(
       <BrowserRouter>
         <Favorites />
       </BrowserRouter>
     );
-    expect(screen.getByText(/No favorite movies found./i)).toBeInTheDocument();
+    expect(screen.getByText(/No favorite movies added yet./i)).toBeInTheDocument();
   });
 });

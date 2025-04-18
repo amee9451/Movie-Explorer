@@ -40,7 +40,8 @@ describe('MovieCard component', () => {
     const toggleFavorite = setup();
     const button = screen.getByRole('button');
     fireEvent.click(button);
-    expect(toggleFavorite).toHaveBeenCalledWith(mockMovie.imdbID);
+    // expect(toggleFavorite).toHaveBeenCalledWith(mockMovie.imdbID);
+    expect(toggleFavorite).toHaveBeenCalledWith(mockMovie);
   });
 
   it('shows correct button text based on favorite state', () => {

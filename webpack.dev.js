@@ -13,6 +13,7 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
   },
+  target: ['web', 'es2017'],
   module: {
     rules: [
       {

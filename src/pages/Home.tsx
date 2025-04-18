@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import MovieCard from '../components/MovieCard';
 import { Movie } from '../types/movie';
 import { useMovies } from '../utils/fetcher';
+import { sanitizeInput } from '../utils/sanitizeInput';
 
 const Home = () => {
   const [query, setQuery] = useState('');
@@ -24,8 +25,9 @@ const Home = () => {
   };
 
   const handleSearch = (query: string): void => {
-    setSearch(query);
-    localStorage.setItem('lastSearch', query);
+    const cleaned = sanitizeInput(query);
+    setSearch(cleaned);
+    localStorage.setItem('lastSearch', cleaned);
   };
 
   useEffect(() => {

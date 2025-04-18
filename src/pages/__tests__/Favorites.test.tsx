@@ -35,6 +35,10 @@ const mockFavoriteMovies: Movie[] = [
     imdbID: 'tt1375666',
     Type: 'movie',
     Poster: 'https://example.com/poster.jpg',
+    Genre: 'Action, Comedy, Drama',
+    Director: 'Dijo Jose Antony',
+    Actors: 'Nivin Pauly, Dhyan Sreenivasan, Anaswara Rajan',
+    Plot: 'An unemployed young man',
   },
 ];
 

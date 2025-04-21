@@ -37,7 +37,7 @@ module.exports = {
     static: {
       directory: path.join(__dirname, "public"), // or wherever your index.html lives
     },
-    port: 3000,
+    port: 3300,
     open: true,
     hot: true,
   },

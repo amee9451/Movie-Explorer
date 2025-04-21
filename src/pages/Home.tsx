@@ -47,7 +47,7 @@ const Home: React.FC = () => {
       setSearch(savedQuery);
     }
   }, []);
-
+  console.log("???????", movies, error, isLoading);
   return (
     <div className="max-w-7xl mx-auto px-4 py-6">
       <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">
@@ -57,7 +57,7 @@ const Home: React.FC = () => {
       <div>
         {isLoading ? (
           <p className="text-center text-gray-600">Loading...</p>
-        ) : error ? (
+        ) : error || movies.length == 0 ? (
           <p className="text-center text-red-400">
             Failed to load movies for <b>{search}</b> keyword.
           </p>

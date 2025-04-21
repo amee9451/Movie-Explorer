@@ -38,6 +38,9 @@ A modern, responsive movie search application built with **React**, **TypeScript
 ![Movie Explorer Movie Details](https://github.com/amee9451/Movie-Explorer/blob/main/public/assets/movie_details.png)
 
 
+## Demo Video
+![Movie Explorer Demo](https://github.com/amee9451/Movie-Explorer/blob/main/public/assets/movie-explorer.mov)
+
 ## 🔧 Setup Instructions
 
 ```bash

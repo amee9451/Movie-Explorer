@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import MovieCard from "../components/MovieCard";
 import { type Movie } from "../types/movie";
-import { useMovies } from "../utils/fetcher";
+import { GetMovies } from "../utils/fetcher";
 import { sanitizeInput } from "../utils/sanitizeInput";
 import SearchBar from "../components/SearchBar";
 
@@ -21,7 +21,7 @@ const Home: React.FC = () => {
     return [];
   });
 
-  const { data: movies, error, isLoading } = useMovies(search);
+  const { data: movies, error, isLoading } = GetMovies(search);
 
   const toggleFavorite = (movie: Movie): void => {
     const exists =

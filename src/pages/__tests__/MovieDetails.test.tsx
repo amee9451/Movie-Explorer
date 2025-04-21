@@ -2,15 +2,15 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import MovieDetails from "../MovieDetails";
-import { useMovieById } from "../../utils/fetcher";
+import { GetMovieById } from "../../utils/fetcher";
 import type { SWRResponse } from "swr";
 
 jest.mock("../../utils/fetcher", () => ({
-  useMovieById: jest.fn(),
+  GetMovieById: jest.fn(),
 }));
 
-const mockedUseMovieById = useMovieById as jest.MockedFunction<
-  typeof useMovieById
+const mockedGetMovieById = GetMovieById as jest.MockedFunction<
+  typeof GetMovieById
 >;
 
 // Helper to mock the SWR response shape
@@ -26,7 +26,7 @@ const mockSWR = <T, E = Error>(
 });
 describe("MovieDetails Component", () => {
   it("displays loading state", () => {
-    mockedUseMovieById.mockReturnValue(mockSWR({ isLoading: true }));
+    mockedGetMovieById.mockReturnValue(mockSWR({ isLoading: true }));
 
     render(
       <MemoryRouter initialEntries={["/movie/tt1375666"]}>
@@ -40,7 +40,7 @@ describe("MovieDetails Component", () => {
   });
 
   it("displays error state", () => {
-    mockedUseMovieById.mockReturnValue(
+    mockedGetMovieById.mockReturnValue(
       mockSWR({ error: new Error("Not found") }),
     );
 

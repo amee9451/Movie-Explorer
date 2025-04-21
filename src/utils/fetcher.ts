@@ -30,7 +30,7 @@ export const fetchMovieById = async (id: string): Promise<Movie | null> => {
   return response.data ?? null;
 };
 
-export const useMovies = (
+export const GetMovies = (
   query: string,
 ): {
   data: Movie[];
@@ -53,7 +53,7 @@ export const useMovies = (
 };
 
 // Explicit return type and string check
-export const useMovieById = (id: string): SWRResponse<Movie, Error> =>
+export const GetMovieById = (id: string): SWRResponse<Movie, Error> =>
   useSWR(
     id.trim() !== "" ? `${BASE_URL}?apikey=${API_KEY}&i=${id}` : null,
     fetcher,

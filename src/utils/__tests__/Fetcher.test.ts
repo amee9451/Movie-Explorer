@@ -4,8 +4,8 @@ import useSWR from "swr";
 import {
   fetchMovies,
   fetchMovieById,
-  useMovies,
-  useMovieById,
+  GetMovies,
+  GetMovieById,
 } from "../fetcher";
 
 jest.mock("axios");
@@ -53,7 +53,7 @@ describe("Fetcher utilities", () => {
     });
   });
 
-  describe("useMovies", () => {
+  describe("GetMovies", () => {
     it("calls SWR with the correct URL and returns movie list", () => {
       mockedSWR.mockReturnValue({
         data: { Search: [mockMovie] },
@@ -61,7 +61,7 @@ describe("Fetcher utilities", () => {
         isLoading: false,
       });
 
-      const { result } = renderHook(() => useMovies("batman"));
+      const { result } = renderHook(() => GetMovies("batman"));
 
       expect(mockedSWR).toHaveBeenCalledWith(
         expect.stringContaining("s=batman"),
@@ -80,7 +80,7 @@ describe("Fetcher utilities", () => {
         error: null,
         isLoading: false,
       });
-      const { result } = renderHook(() => useMovies(""));
+      const { result } = renderHook(() => GetMovies(""));
       expect(result.current.data).toEqual([]); // Not null, but an empty array
       expect(mockedSWR).toHaveBeenCalledWith(
         null,
@@ -90,7 +90,7 @@ describe("Fetcher utilities", () => {
     });
   });
 
-  describe("useMovieById", () => {
+  describe("GetMovieById", () => {
     it("calls SWR with correct ID query", () => {
       mockedSWR.mockReturnValue({
         data: mockMovie,
@@ -98,7 +98,7 @@ describe("Fetcher utilities", () => {
         isLoading: false,
       });
 
-      const { result } = renderHook(() => useMovieById("tt1375666"));
+      const { result } = renderHook(() => GetMovieById("tt1375666"));
 
       expect(result.current.data).toEqual(mockMovie);
       expect(mockedSWR).toHaveBeenCalledWith(
@@ -109,7 +109,7 @@ describe("Fetcher utilities", () => {
     });
 
     it("returns null if ID is not provided", () => {
-      renderHook(() => useMovieById(""));
+      renderHook(() => GetMovieById(""));
       expect(mockedSWR).toHaveBeenCalledWith(
         null,
         expect.any(Function),

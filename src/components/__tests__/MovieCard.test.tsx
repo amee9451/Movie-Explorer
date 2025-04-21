@@ -1,5 +1,3 @@
-// src/components/__tests__/MovieCard.test.tsx
-
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import MovieCard from "../MovieCard";

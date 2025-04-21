@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import Home from "../../pages/Home";
-import { useMovies } from "../../utils/fetcher";
+import { GetMovies } from "../../utils/fetcher";
 import "@testing-library/jest-dom";
 import { MemoryRouter } from "react-router-dom";
 
@@ -14,7 +14,7 @@ const mockMovies = [
 describe("Home Component", () => {
   beforeEach(() => {
     localStorage.clear();
-    (useMovies as jest.Mock).mockReturnValue({
+    (GetMovies as jest.Mock).mockReturnValue({
       data: mockMovies,
       isLoading: false,
       error: null,
@@ -32,7 +32,7 @@ describe("Home Component", () => {
   });
 
   it("shows loading state", () => {
-    (useMovies as jest.Mock).mockReturnValue({ isLoading: true });
+    (GetMovies as jest.Mock).mockReturnValue({ isLoading: true });
     render(
       <MemoryRouter>
         <Home />
@@ -42,7 +42,7 @@ describe("Home Component", () => {
   });
 
   it("shows error state", () => {
-    (useMovies as jest.Mock).mockReturnValue({ error: true });
+    (GetMovies as jest.Mock).mockReturnValue({ error: true });
     render(
       <MemoryRouter>
         <Home />

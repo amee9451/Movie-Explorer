@@ -1,11 +1,11 @@
 import React from "react";
 import { useParams, Link } from "react-router-dom";
-import { useMovieById } from "../utils/fetcher";
+import { GetMovieById } from "../utils/fetcher";
 
 const MovieDetails: React.FC = () => {
   const { id } = useParams<{ id?: string }>();
   const movieId = id?.trim() ?? "";
-  const { data: movie, error, isLoading } = useMovieById(movieId);
+  const { data: movie, error, isLoading } = GetMovieById(movieId);
 
   if (isLoading) {
     return <div className="text-center py-4">Loading movie details...</div>;

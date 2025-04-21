@@ -9,6 +9,7 @@ const MovieCard: React.FC<Props> = ({ movie, isFavorite, toggleFavorite }) => {
         <img
           src={movie.Poster}
           alt={movie.Title}
+          loading="lazy"
           className="w-full h-64 object-cover mb-2"
         />
         <h3 className="font-semibold">

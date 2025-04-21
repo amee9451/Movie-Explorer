@@ -25,6 +25,7 @@ const MovieDetails: React.FC = () => {
         <img
           src={movie.Poster !== "N/A" ? movie.Poster : "/no-poster.jpg"}
           alt={movie.Title}
+          loading="lazy"
           className="w-full md:w-64 rounded shadow"
         />
         <div className="flex-1">

@@ -1,8 +1,8 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import Home from "./pages/Home";
-import Favorites from "./pages/Favorites";
-import MovieDetails from "./pages/MovieDetails";
+const MovieDetails = React.lazy(() => import("./pages/MovieDetails"));
+const Favorites = React.lazy(() => import("./pages/Favorites"));
 
 const App: React.FC = () => (
   <div className="min-h-screen bg-gray-100">
@@ -13,11 +13,13 @@ const App: React.FC = () => (
       </div>
     </header>
     <main className="container mx-auto p-4">
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/movie/:id" element={<MovieDetails />} />
-        <Route path="/favorites" element={<Favorites />} />
-      </Routes>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/favorites" element={<Favorites />} />
+          <Route path="/movie/:id" element={<MovieDetails />} />
+        </Routes>
+      </Suspense>
     </main>
   </div>
 );

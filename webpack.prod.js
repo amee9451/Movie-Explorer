@@ -9,10 +9,12 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.js",
+    publicPath: "/",
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".jsx"],
   },
+  target: ["web", "es2017"],
   module: {
     rules: [
       {
@@ -31,9 +33,7 @@ module.exports = {
     ],
   },
   devServer: {
-    historyApiFallback: {
-      index: "./public/index.html",
-    },
+    historyApiFallback: true,
     static: {
       directory: path.join(__dirname, "public"), // or wherever your index.html lives
     },

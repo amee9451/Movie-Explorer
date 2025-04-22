@@ -10,9 +10,10 @@
     "test": "jest",
     "start": "webpack serve --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
-    "vercel-build": "webpack --config webpack.prod.js",
+    "vercel-build": "webpack --config webpack.prod.js --mode production",
     "coverage": "npm test -- --coverage",
-    "test:bail": "jest --bail"
+    "test:bail": "jest --bail",
+    "st": "serve -s dist"
   },
   "keywords": [],
   "author": "",

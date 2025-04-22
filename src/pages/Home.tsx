@@ -56,7 +56,7 @@ const Home: React.FC = () => {
       <div>
         {isLoading ? (
           <p className="text-center text-gray-600">Loading...</p>
-        ) : error || movies.length == 0 ? (
+        ) : error || (movies.length == 0 && search) ? (
           <p className="text-center text-red-400">
             Failed to load movies for <b>{search}</b> keyword.
           </p>

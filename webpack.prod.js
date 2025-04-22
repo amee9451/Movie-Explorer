@@ -33,7 +33,9 @@ module.exports = {
     ],
   },
   devServer: {
-    historyApiFallback: true,
+    historyApiFallback: {
+      index: "./public/index.html",
+    },
     static: {
       directory: path.join(__dirname, "public"), // or wherever your index.html lives
     },
